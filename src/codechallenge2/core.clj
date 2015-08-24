@@ -3,6 +3,20 @@
 
 (use '[clojure.data.priority-map])
 
+(defn find-start [area]
+  (first
+    (for [[x row] (map-indexed vector area)
+      [y val] (map-indexed vector row)
+      :when (= 2 val)]
+  [y x])))
+
+(defn find-end [area]
+  (first
+    (for [[x row] (map-indexed vector area)
+      [y val] (map-indexed vector row)
+      :when (= 3 val)]
+  [y x])))
+
 (defn manhattan-distance [[x1 y1] [x2 y2]]
   (+ (Math/abs ^Integer (- x2 x1)) (Math/abs ^Integer (- y2 y1))))
 
@@ -92,17 +106,6 @@
             [0 0 0 1 0 0 0]
             [0 0 0 0 0 0 0]])
 
-(defn find-start [area]
-  (for [[x row] (map-indexed vector area)
-      [y val] (map-indexed vector row)
-      :when (= 2 val)]
-  [y x]))
-
-(defn find-end [area]
-  (for [[x row] (map-indexed vector area)
-      [y val] (map-indexed vector row)
-      :when (= 3 val)]
-  [y x]))
 
 
 (def mazeTest[[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
@@ -130,6 +133,6 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (draw-map mazeTest (first(find-start mazeTest))  (first(find-end mazeTest)))
+  (draw-map mazeTest (find-start mazeTest)  (find-end mazeTest))
   ;(println (first(find-start mazeTest))  (first(find-end mazeTest)))
   )

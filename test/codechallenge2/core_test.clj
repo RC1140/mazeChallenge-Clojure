@@ -2,6 +2,10 @@
   (:require [clojure.test :refer :all]
             [codechallenge2.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest can-find-start
+    (is (= [0 1]
+           (find-start mazeTest))))
+
+(deftest can-find-end
+    (is (= [19 18]
+           (find-end mazeTest))))
