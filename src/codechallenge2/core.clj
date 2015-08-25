@@ -2,6 +2,7 @@
   (:gen-class))
 
 (use '[clojure.data.priority-map])
+(require '[clojure.string :as str])
 
 (defn find-start [area]
   (first
@@ -129,6 +130,12 @@
               [1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 3]
               [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]])
 
+(defn map-parser  []
+  (let [splitParts (str/split (slurp "c:/dev/chase/challenge2/maze/mazes.txt") #"\r\n")]
+    (for [line splitParts]
+      (map #(Integer/parseInt %)
+           (re-seq #"\d" (str/replace line #"#| |S|F" { "#" "1" " " "0" "S" "2" "F" "3"}))
+           ))))
 
 (defn -main
   "I don't do a whole lot ... yet."
